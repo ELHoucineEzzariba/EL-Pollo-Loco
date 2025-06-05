@@ -104,14 +104,17 @@ class World{
                 const delay = Math.random() * 3000;
     
                 setTimeout(() => {
-                    let newX = 2800 + Math.random() * 1000;
+                    // Spawn chickens slightly ahead of the character but
+                    // never beyond the level's end.
+                    let baseX = Math.min(this.character.x + 800, this.level.level_end_x);
+                    let newX = Math.min(baseX + Math.random() * 200, this.level.level_end_x);
                     let attempts = 0;
-    
+
                     while (
                         !this.isPositionFarEnough(newX, this.level.enemies, 150) &&
                         attempts < 10
                     ) {
-                        newX = 2800 + Math.random() * 1000;
+                        newX = Math.min(baseX + Math.random() * 200, this.level.level_end_x);
                         attempts++;
                     }
     
